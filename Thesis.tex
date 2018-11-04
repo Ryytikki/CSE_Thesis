@@ -1,0 +1,238 @@
+%% ----------------------------------------------------------------
+%% Thesis.tex -- MAIN FILE (the one that you compile with LaTeX)
+%% ---------------------------------------------------------------- 
+
+% Set up the document
+\documentclass[a4paper, 12pt, oneside]{Thesis}  % Use the "Thesis" style, based on the ECS Thesis style by Steve Gunn
+\graphicspath{Figures/}  % Location of the graphics files (set up for graphics to be in PDF format)
+
+% Include any extra LaTeX packages required
+\usepackage[square, numbers, comma, sort&compress]{natbib}  % Use the "Natbib" style for the references in the Bibliography
+\setcitestyle{authoryear, open={[}, close = {]}}
+%\usepackage[backend=biber,style=alphabetic,citestyle=authoryear]{biblatex}
+\usepackage{apalike}
+\usepackage{verbatim}  % Needed for the "comment" environment to make LaTeX comments
+\usepackage{vector}  % Allows "\bvec{}" and "\buvec{}" for "blackboard" style bold vectors in maths
+
+\usepackage{float}
+\usepackage{bm}
+
+\hypersetup{urlcolor=black, colorlinks=true}  % Colours hyperlinks in blue, but this can be distracting if there are many links.
+
+%% ----------------------------------------------------------------
+\begin{document}
+\pagestyle{empty}
+THE EFFICIENT SIMULATION OF COMPLEX RADIATION SOURCES
+\clearpage
+
+\frontmatter      % Begin Roman style (i, ii, iii, iv...) page numbering
+
+% Set up the Title Page
+\title  {THE EFFICIENT SIMULATION OF COMPLEX RADIATION SOURCES}
+\authors  {\texorpdfstring
+            {\href{tmudway@physics.org}{THOMAS MUDWAY, B.SC. (HONS), M.SC. (DIST)}}
+            {THOMAS MUDWAY, B.SC. M.SC.}
+            }
+\addresses  {\groupname\\\deptname\\\univname}  % Do not change this here, instead these must be set in the "Thesis.cls" file, please look through it instead
+\date       {\today}
+\subject    {}
+\keywords   {}
+
+\maketitle
+
+\setstretch{1.3}  % It is better to have smaller font and larger line spacing than the other way round
+
+% Define the page headers using the FancyHdr package and set up for one-sided printing
+\fancyhead{}  % Clears all page headers and footers
+\rhead{\thepage}  % Sets the right side header to show the page number
+\lhead{}  % Clears the left side page header
+
+\pagestyle{fancy}  % Finally, use the "fancy" page style to implement the FancyHdr headers
+
+%% ----------------------------------------------------------------
+% Descriptive Note
+McMaster University MASTER OF SCIENCE (2018) Hamilton, Ontario \\
+(Computational Science and Engineering)
+
+TITLE: The Efficient Simulation of Complex Radiation Sources 
+
+AUTHOR: Thomas Mudway, B.Sc. (Leicester University), M.Sc. (Leicester University) 
+
+SUPERVISORS: Professor James Wadsley, Professor Hugh Couchman
+
+NUMBER OF PAGES: ix, 85
+\clearpage
+%% ----------------------------------------------------------------
+% The "Funny Quote Page"
+%\pagestyle{empty}  % No headers or footers for the following pages
+
+%\null\vfill
+% Now comes the "Funny Quote", written in italics
+%\textit{``What do you mean you're debugging your thesis, what is there to debug?''}
+
+%\begin{flushright}
+%Morgan Mudway
+%\end{flushright}
+
+%\vfill\vfill\vfill\vfill\vfill\vfill\null
+%\clearpage  % Funny Quote page ended, start a new page
+%% ----------------------------------------------------------------
+
+% The Abstract Page
+\addtotoc{Abstract}  % Add the "Abstract" page entry to the Contents
+\abstract{
+\addtocontents{toc}{\vspace{1em}}  % Add a gap in the Contents, for aesthetics
+We describe the implementation and testing of the TREVR (Tree-based REVerse Ray-tracing) radiative transfer algorithm in the ChaNGa (Charm N-body Gravity solver) code. We calculated the optimal values for the source walk opening angle and ray trace walk refinement parameter of $\theta = 0.5$ and $\tau = 0.01$ respectively. We then studied the effects of the merging of sources on the accuracy of the calculated flux in absorbing regions, noting a systematic negative error and an angular dependence across all optical depths. We dubbed this the ``Complex Sources Problem" and provide suggestions to mitigate its effects.
+}
+
+\clearpage  % Abstract ended, start a new page
+%% ----------------------------------------------------------------
+
+%\setstretch{1.3}  % Reset the line-spacing to 1.3 for body text (if it has changed)
+
+% The Acknowledgements page, for thanking everyone
+\acknowledgements{
+\addtocontents{toc}{\vspace{1em}}  % Add a gap in the Contents, for aesthetics
+First, I'd like to thank my supervisors, James Wadsley and Hugh Couchman for the constant advice, patience and occasional criticism to make sure I stayed on track. I'm sure the last two years have been an adventure for all of us and I look forward to any work we may end up collaborating on in the future. James also did an excellent job of enabling my breakfast cookie addiction during our weekly group meetings.
+
+I appreciate the support from Jasper Grond, Joey Rucska and briefly Ben Keller, all of whom I had the pleasure of sharing an office with. Thank you for all the help settling in both at the university and in Canada in general. I've thoroughly enjoyed working with you all for the last few years and wish you all luck wherever the future may take you.
+
+I'd also like to thank Tom Quinn at the University of Washington for the regular assistance with the code, particularly with solving a bug that had eluded me for months the day before my supervisory committee meeting. Without your patient and helpful advice I would have had a far more challenging time getting the code to where it is today.
+
+Finally, I'd like to thank the numerous friends and family both near and far who have supported me through the last 2 years and beyond, particularly my partner Morgan, whose constant love and trust has helped me overcome every bump in the road to get to where I am. 
+
+Also my cats, who are the best and nobody can convince me otherwise.
+
+%The acknowledgements and the people to thank go here, don't forget to include your project advisor\ldots
+}
+%
+\clearpage  % End of the Acknowledgements
+%% ----------------------------------------------------------------
+
+\pagestyle{fancy}  %The page style headers have been "empty" all this time, now use the "fancy" headers as defined before to bring them back
+
+%% ----------------------------------------------------------------
+\lhead{\emph{Contents}}  % Set the left side page header to "Contents"
+\doublespacing
+
+\tableofcontents  % Write out the Table of Contents
+
+%% ----------------------------------------------------------------
+\lhead{\emph{List of Figures}}  % Set the left side page header to "List if Figures"
+\listoffigures  % Write out the List of Figures
+
+%% ----------------------------------------------------------------
+%\lhead{\emph{List of Tables}}  % Set the left side page header to "List of Tables"
+%\listoftables  % Write out the List of Tables
+
+%% ----------------------------------------------------------------
+%\setstretch{1.5}  % Set the line spacing to 1.5, this makes the following tables easier to read
+%\clearpage  % Start a new page
+%\lhead{\emph{Abbreviations}}  % Set the left side page header to "Abbreviations"
+%\listofsymbols{ll}  % Include a list of Abbreviations (a table of two columns)
+%{
+% \textbf{Acronym} & \textbf{W}hat (it) \textbf{S}tands \textbf{F}or \\
+%\textbf{LAH} & \textbf{L}ist \textbf{A}bbreviations \textbf{H}ere \\
+
+%}
+
+%% ----------------------------------------------------------------
+%\clearpage  % Start a new page
+%\lhead{\emph{Physical Constants}}  % Set the left side page header to "Physical Constants"
+%\listofconstants{lrcl}  % Include a list of Physical Constants (a four column table)
+%{
+% Constant Name & Symbol & = & Constant Value (with units) \\
+%Speed of Light & $c$ & $=$ & $2.997\ 924\ 58\times10^{8}\ \mbox{ms}^{-\mbox{s}}$ (exact)\\
+
+%}
+
+%% ----------------------------------------------------------------
+%\clearpage  %Start a new page
+%\lhead{\emph{Symbols}}  % Set the left side page header to "Symbols"
+%\listofnomenclature{lll}  % Include a list of Symbols (a three column table)
+%{
+% symbol & name & unit \\
+%$a$ & distance & m \\
+%$P$ & power & W (Js$^{-1}$) \\
+%& & \\ % Gap to separate the Roman symbols from the Greek
+%$\omega$ & angular frequency & rads$^{-1}$ \\
+%}
+%% ----------------------------------------------------------------
+% Declaration Page required for the Thesis, your institution may give you a different text to place here
+\iffalse
+\Declaration{
+
+\addtocontents{toc}{\vspace{1em}}  % Add a gap in the Contents, for aesthetics
+
+I, Thomas Mudway, declare that this thesis titled, `THE EFFICIENT SIMULATION OF COMPLEX RADIATION SOURCES' and the work presented in it are my own. I confirm that:
+
+\begin{itemize} 
+\item[\tiny{$\blacksquare$}] This work was done wholly or mainly while in candidature for a research degree at this University.
+ 
+\item[\tiny{$\blacksquare$}] Where any part of this thesis has previously been submitted for a degree or any other qualification at this University or any other institution, this has been clearly stated.
+ 
+\item[\tiny{$\blacksquare$}] Where I have consulted the published work of others, this is always clearly attributed.
+ 
+\item[\tiny{$\blacksquare$}] Where I have quoted from the work of others, the source is always given. With the exception of such quotations, this thesis is entirely my own work.
+ 
+\item[\tiny{$\blacksquare$}] I have acknowledged all main sources of help.
+ 
+\item[\tiny{$\blacksquare$}] Where the thesis is based on work done by myself jointly with others, I have made clear exactly what was done by others and what I have contributed myself.
+\\
+\end{itemize}
+}
+\clearpage
+\fi
+%% ----------------------------------------------------------------
+% End of the pre-able, contents and lists of things
+
+%% ----------------------------------------------------------------
+\mainmatter	  % Begin normal, numeric (1,2,3...) page numbering
+\pagestyle{fancy}  % Return the page headers back to the "fancy" style
+\doublespacing
+% Include the chapters of the thesis, as separate files
+% Just uncomment the lines as you write the chapters
+\lhead{M.Sc. Thesis - T. Mudway; McMaster University - Comp. Sci. \& Eng.}
+%\lhead{\emph{Introduction}} 
+\input{Chapters/Chapter1} % Introduction
+
+%\lhead{\emph{TRevR and Reverse Ray Tracings}} 
+\input{Chapters/Chapter2} % Radiative Transfer Methods
+
+%\lhead{\emph{Implementation}} 
+\input{Chapters/Chapter3} % Implementation
+
+%\lhead{\emph{Testing And Analysis}} 
+\input{Chapters/Chapter4} % Testing
+
+%\lhead{\emph{Conclusion and Future Research}}
+\input{Chapters/Chapter5} % Future
+
+%\input{Chapters/Chapter6} % Results and Discussion
+
+%\input{Chapters/Chapter7} % Conclusion
+
+%% ----------------------------------------------------------------
+% Now begin the Appendices, including them as separate files
+
+%\addtocontents{toc}{\vspace{2em}} % Add a gap in the Contents, for aesthetics
+
+%\appendix % Cue to tell LaTeX that the following 'chapters' are Appendices
+
+%\input{Appendices/AppendixA}	% Appendix Title
+
+%\input{Appendices/AppendixB} % Appendix Title
+
+%\input{Appendices/AppendixC} % Appendix Title
+
+\addtocontents{toc}{\vspace{2em}}  % Add a gap in the Contents, for aesthetics
+\backmatter
+
+%% ----------------------------------------------------------------
+\label{Bibliography}
+\lhead{\emph{Bibliography}}  % Change the left side page header to "Bibliography"
+\bibliographystyle{unsrtnat}  % Use the "unsrtnat" BibTeX style for formatting the Bibliography
+\bibliography{Bibliography}  % The references (bibliography) information are stored in the file named "Bibliography.bib"
+
+\end{document}  % The End
+%% ----------------------------------------------------------------
